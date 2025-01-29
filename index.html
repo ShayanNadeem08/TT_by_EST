@@ -14,7 +14,12 @@
             min-height: 100vh;
             margin: 0;
         }
-        
+        html {
+    background: linear-gradient(to bottom, #0b0f30, #1a1f50); /* Same as body */
+    height: 100%;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
         .container {
             max-width: 1200px;
             margin: auto;
@@ -144,16 +149,15 @@
         </ul>
     </div>
 
-    <div class="container selection-process">
-        <h2>Rules</h2>
-        <ul>
-            <li>🏓 Each match consists of **3 sets**.</li>
-            <li>🔢 Each set is played to **11 points**.</li>
-            <li>🔄 Players get **2 serves each** before switching.</li>
-            <li>⏳ **Late arrival results in automatic disqualification**.</li>
-        </ul>
-    </div>
-
+   <div class="container selection-process">
+    <h2>Rules</h2>
+    <ul>
+        <li>🏓 Each match consists of <strong>3 sets</strong>.</li>
+        <li>🔢 Each set is played to <strong>11 points</strong>.</li>
+        <li>🔄 Players get <strong>2 serves each</strong> before switching.</li>
+        <li>⏳ <strong>Late arrival results in automatic disqualification</strong>.</li>
+    </ul>
+</div>
     <script>
         const rounds = [
             {
@@ -162,14 +166,14 @@
                 matches: [
                     { team1: "Abubakar Nadeem", team2: "Hani Mukhtar", match: "M1" },
                     { team1: "Abdul Rehman", team2: "Fawzan", match: "M2" },
-                    { team1: "Zubair Ahmad", team2: "Rana Umar", match: "M3" },
+                    { team1: "Waqar Ali", team2: "Rana Umar", match: "M3" },
                     { team1: "Hammad Ahmad", team2: "Ali Raza", match: "M4" },
-                    { team1: "Moiz", team2: "Affan Ahmad", match: "M5" },
+                    { team1: "Abdul Hadi Qureshi", team2: "Affan Ahmad", match: "M5" },
                     { team1: "Salman Raza Alvi", team2: "Usarim", match: "M6" },
                     { team1: "Hannan", team2: "Noor Ul Hassan", match: "M7" },
-                    { team1: "Aman Murad", team2: "Waqar Ali", match: "M8" },
+                    { team1: "Aman Murad", team2: "Zubair Ahmad", match: "M8" },
                     { team1: "Raza Haider", team2: "Muhammad Dawood", match: "M9" },
-                    { team1: "Abdul Hadi Qureshi", team2: "Najabat Ali", match: "M10" },
+                    { team1: "Moiz", team2: "Najabat Ali", match: "M10" },
                 ]
             },
             {
