@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TT by EST 2025</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #0b0f30, #1a1f50);
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+        .round {
+            margin-bottom: 30px;
+        }
+        .match {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            padding: 15px;
+            margin: 10px;
+            border-radius: 10px;
+            border: 1px solid #00bfff;
+            box-shadow: 0px 0px 10px rgba(0, 191, 255, 0.5);
+            font-size: 1.5em;
+        }
+        .match span {
+            font-weight: bold;
+            color: yellow;
+        }
+        .selection-process {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #800080;
+            box-shadow: 0px 0px 10px rgba(128, 0, 128, 0.5);
+            text-align: left;
+            max-width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>TT by <span style="color: #00bfff;">EST 2025</span></h1>
+    <div class="container" id="bracket"></div>
+    <div class="container selection-process">
+        <h2>Final Knockout Process</h2>
+        <ul>
+            <li>🔥 Five winners from the previous rounds are listed.</li>
+            <li>🎲 A random selection determines which two players start.</li>
+            <li>🏆 The winner of this match stays at the table.</li>
+            <li>❌ The loser is eliminated from the tournament.</li>
+            <li>🔄 Another player is randomly selected to challenge the winner.</li>
+            <li>⚔️ This process continues until no players are left.</li>
+            <li>👑 The last player standing at the table is the ultimate winner.</li>
+        </ul>
+    </div>
+    <script>
+        const rounds = [
+            {
+                round: "Round of 20",
+                matches: [
+                    { team1: "Team 1", team2: "Team 2", match: "M1" },
+                    { team1: "Team 3", team2: "Team 4", match: "M2" },
+                    { team1: "Team 5", team2: "Team 6", match: "M3" },
+                    { team1: "Team 7", team2: "Team 8", match: "M4" },
+                    { team1: "Team 9", team2: "Team 10", match: "M5" },
+                    { team1: "Team 11", team2: "Team 12", match: "M6" },
+                    { team1: "Team 13", team2: "Team 14", match: "M7" },
+                    { team1: "Team 15", team2: "Team 16", match: "M8" },
+                    { team1: "Team 17", team2: "Team 18", match: "M9" },
+                    { team1: "Team 19", team2: "Team 20", match: "M10" },
+                ]
+            },
+            {
+                round: "Round of 10",
+                matches: [
+                    { team1: "Winner M1", team2: "Winner M2", match: "M11" },
+                    { team1: "Winner M3", team2: "Winner M4", match: "M12" },
+                    { team1: "Winner M5", team2: "Winner M6", match: "M13" },
+                    { team1: "Winner M7", team2: "Winner M8", match: "M14" },
+                    { team1: "Winner M9", team2: "Winner M10", match: "M15" },
+                ]
+            },
+            {
+                round: "Round of 5",
+                matches: [
+                    "Winner M11",
+                    "Winner M12",
+                    "Winner M13",
+                    "Winner M14",
+                    "Winner M15",
+                ]
+            }
+        ];
+        
+        const bracketDiv = document.getElementById("bracket");
+        rounds.forEach(round => {
+            const roundDiv = document.createElement("div");
+            roundDiv.classList.add("round");
+            roundDiv.innerHTML = `<h2>${round.round}</h2>`;
+            if (Array.isArray(round.matches)) {
+                round.matches.forEach(match => {
+                    if (typeof match === "object") {
+                        roundDiv.innerHTML += `<div class='match'><span>${match.match}</span><br>${match.team1} VS ${match.team2}</div>`;
+                    } else {
+                        roundDiv.innerHTML += `<div class='match'>${match}</div>`;
+                    }
+                });
+            }
+            bracketDiv.appendChild(roundDiv);
+        });
+    </script>
+</body>
+</html>
