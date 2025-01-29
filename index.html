@@ -131,7 +131,7 @@
 <body>
     <h1>TT by <span style="color: #00bfff;">EST 2025</span></h1>
     <div class="container" id="bracket"></div>
-    <div class="container selection-process">
+        <div class="container selection-process">
         <h2>Final Knockout Process</h2>
         <ul>
             <li>🔥 Five winners from the previous rounds are listed.</li>
@@ -143,25 +143,38 @@
             <li>👑 The last player standing at the table is the ultimate winner.</li>
         </ul>
     </div>
+
+    <div class="container selection-process">
+        <h2>Rules</h2>
+        <ul>
+            <li>🏓 Each match consists of **3 sets**.</li>
+            <li>🔢 Each set is played to **11 points**.</li>
+            <li>🔄 Players get **2 serves each** before switching.</li>
+            <li>⏳ **Late arrival results in automatic disqualification**.</li>
+        </ul>
+    </div>
+
     <script>
         const rounds = [
             {
-                round: "Round of 20",
+                round: "Round of 20 (Friday 31-01-2025)",
+                startTime: "2025-01-31T14:00:00", // starting at 2:00 PM on 31-01-2025
                 matches: [
-                    { team1: "Team 1", team2: "Team 2", match: "M1" },
-                    { team1: "Team 3", team2: "Team 4", match: "M2" },
-                    { team1: "Team 5", team2: "Team 6", match: "M3" },
-                    { team1: "Team 7", team2: "Team 8", match: "M4" },
-                    { team1: "Team 9", team2: "Team 10", match: "M5" },
-                    { team1: "Team 11", team2: "Team 12", match: "M6" },
-                    { team1: "Team 13", team2: "Team 14", match: "M7" },
-                    { team1: "Team 15", team2: "Team 16", match: "M8" },
-                    { team1: "Team 17", team2: "Team 18", match: "M9" },
-                    { team1: "Team 19", team2: "Team 20", match: "M10" },
+                    { team1: "Abubakar Nadeem", team2: "Hani Mukhtar", match: "M1" },
+                    { team1: "Abdul Rehman", team2: "Fawzan", match: "M2" },
+                    { team1: "Zubair Ahmad", team2: "Rana Umar", match: "M3" },
+                    { team1: "Hammad Ahmad", team2: "Ali Raza", match: "M4" },
+                    { team1: "Moiz", team2: "Affan Ahmad", match: "M5" },
+                    { team1: "Salman Raza Alvi", team2: "Usarim", match: "M6" },
+                    { team1: "Hannan", team2: "Noor Ul Hassan", match: "M7" },
+                    { team1: "Aman Murad", team2: "Waqar Ali", match: "M8" },
+                    { team1: "Raza Haider", team2: "Muhammad Dawood", match: "M9" },
+                    { team1: "Abdul Hadi Qureshi", team2: "Najabat Ali", match: "M10" },
                 ]
             },
             {
-                round: "Round of 10",
+                round: "Round of 10 (Monday 03-02-2025)",
+                startTime: "2025-02-03T12:00:00", // starting at 12:00 PM on 03-02-2025
                 matches: [
                     { team1: "Winner M1", team2: "Winner M2", match: "M11" },
                     { team1: "Winner M3", team2: "Winner M4", match: "M12" },
@@ -171,7 +184,7 @@
                 ]
             },
             {
-                round: "Round of 5",
+                round: "Round of 5 Tuesday 04-02-2025",
                 matches: [
                     "Winner M11",
                     "Winner M12",
@@ -181,7 +194,12 @@
                 ]
             }
         ];
-        
+
+        const formatTime = (dateStr) => {
+            const date = new Date(dateStr);
+            return `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+        };
+
         const bracketDiv = document.getElementById("bracket");
         rounds.forEach(round => {
             const roundDiv = document.createElement("div");
@@ -190,27 +208,28 @@
             
             const matchesGrid = document.createElement("div");
             matchesGrid.classList.add("matches-grid");
-            
-            if (Array.isArray(round.matches)) {
-                round.matches.forEach(match => {
-                    if (typeof match === "object") {
-                        matchesGrid.innerHTML += `
-                            <div class='match'>
-                                <span>${match.match}</span>
-                                <div class='match-teams'>
-                                    <div class='team-name'>${match.team1}</div>
-                                    <div class='vs'>VS</div>
-                                    <div class='team-name'>${match.team2}</div>
-                                </div>
-                            </div>`;
-                    } else {
-                        matchesGrid.innerHTML += `
-                            <div class='match'>
-                                <div class='team-name'>${match}</div>
-                            </div>`;
-                    }
-                });
-            }
+
+            let matchTime = new Date(round.startTime);
+            round.matches.forEach((match, index) => {
+                if (typeof match === "object") {
+                    matchesGrid.innerHTML += `
+                        <div class='match'>
+                            <span>${match.match} - ${formatTime(matchTime.toISOString())}</span>
+                            <div class='match-teams'>
+                                <div class='team-name'>${match.team1}</div>
+                                <div class='vs'>VS</div>
+                                <div class='team-name'>${match.team2}</div>
+                            </div>
+                        </div>`;
+                    matchTime.setMinutes(matchTime.getMinutes() + 10); // Increment by 10 minutes
+                } else {
+                    matchesGrid.innerHTML += `
+                        <div class='match'>
+                            <span>${match}</span>
+                            <div class='team-name'>${match}</div>
+                        </div>`;
+                }
+            });
             
             roundDiv.appendChild(matchesGrid);
             bracketDiv.appendChild(roundDiv);
