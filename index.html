@@ -11,36 +11,120 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
+            min-height: 100vh;
+            margin: 0;
         }
+        
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: auto;
-        }
-        .round {
-            margin-bottom: 30px;
-        }
-        .match {
-            background: linear-gradient(to right, #1e3c72, #2a5298);
-            padding: 15px;
-            margin: 10px;
-            border-radius: 10px;
-            border: 1px solid #00bfff;
-            box-shadow: 0px 0px 10px rgba(0, 191, 255, 0.5);
-            font-size: 1.5em;
-        }
-        .match span {
-            font-weight: bold;
-            color: yellow;
-        }
-        .selection-process {
-            background: #222;
             padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #800080;
-            box-shadow: 0px 0px 10px rgba(128, 0, 128, 0.5);
+        }
+
+        h1 {
+            font-size: 3.5em;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+            margin-bottom: 40px;
+        }
+
+        .round {
+            margin-bottom: 50px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .round h2 {
+            font-size: 2.2em;
+            color: #00bfff;
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
+            position: relative;
+        }
+
+        .round h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #00bfff, transparent);
+            margin: 10px auto;
+        }
+
+        .matches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .match {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #00bfff;
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.2);
+            font-size: 1.2em;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .match:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 25px rgba(0, 191, 255, 0.3);
+        }
+
+        .match span {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-weight: bold;
+            color: #ffd700;
+            font-size: 0.8em;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 8px;
+            border-radius: 5px;
+        }
+
+        .match-teams {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .vs {
+            color: #ff4d4d;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin: 5px 0;
+            text-shadow: 0 0 5px rgba(255, 77, 77, 0.5);
+        }
+
+        .team-name {
+            color: #ffd700;
+            font-weight: 600;
+        }
+
+        .selection-process {
+            background: rgba(34, 34, 34, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid #800080;
+            box-shadow: 0 0 30px rgba(128, 0, 128, 0.3);
             text-align: left;
             max-width: 800px;
-            margin: auto;
+            margin: 50px auto;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -103,15 +187,32 @@
             const roundDiv = document.createElement("div");
             roundDiv.classList.add("round");
             roundDiv.innerHTML = `<h2>${round.round}</h2>`;
+            
+            const matchesGrid = document.createElement("div");
+            matchesGrid.classList.add("matches-grid");
+            
             if (Array.isArray(round.matches)) {
                 round.matches.forEach(match => {
                     if (typeof match === "object") {
-                        roundDiv.innerHTML += `<div class='match'><span>${match.match}</span><br>${match.team1} VS ${match.team2}</div>`;
+                        matchesGrid.innerHTML += `
+                            <div class='match'>
+                                <span>${match.match}</span>
+                                <div class='match-teams'>
+                                    <div class='team-name'>${match.team1}</div>
+                                    <div class='vs'>VS</div>
+                                    <div class='team-name'>${match.team2}</div>
+                                </div>
+                            </div>`;
                     } else {
-                        roundDiv.innerHTML += `<div class='match'>${match}</div>`;
+                        matchesGrid.innerHTML += `
+                            <div class='match'>
+                                <div class='team-name'>${match}</div>
+                            </div>`;
                     }
                 });
             }
+            
+            roundDiv.appendChild(matchesGrid);
             bracketDiv.appendChild(roundDiv);
         });
     </script>
